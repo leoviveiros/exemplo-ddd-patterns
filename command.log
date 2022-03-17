@@ -1,0 +1,7 @@
+## Typescript ##
+
+# inicia projeto ts
+npx tsc --init
+
+# compila ts
+npx tsc
