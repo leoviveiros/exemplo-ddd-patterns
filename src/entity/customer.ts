@@ -1,8 +1,10 @@
+import Address from './address';
+
 /*
 Complexidade de Negócio:
 - domain (regras de negocio)
     - entity
-        - customer.ts 
+        - customer.ts
 
 Complexidade Acidental
 - infra (mundo externo)
@@ -12,7 +14,7 @@ Complexidade Acidental
 export class Customer {
     _id: string;
     _name: string;
-    _address: string = "";
+    _address!: Address;
     _active: boolean = false;
 
     constructor(id: string, name: string) {
@@ -28,14 +30,8 @@ export class Customer {
         this.validade();
     }
 
-    changeAddress(address: string) {
-        this._address = address;
-
-        this.validade();
-    }
-
     activate() {
-        if (!this._address || this._address.length === 0) {
+        if (!this._address || this._address === undefined) {
             throw new Error("Customer must have an address");
         }
 
@@ -55,4 +51,9 @@ export class Customer {
             throw new Error("Name is required");
         }
     }
+
+    set Address(address: Address) {
+        this._address = address;
+    }
+
 }
