@@ -11,7 +11,7 @@ Complexidade Acidental
     - model
         - customer.ts (getters / setters)
 */
-export class Customer {
+export default class Customer {
     _id: string;
     _name: string;
     _address!: Address;
