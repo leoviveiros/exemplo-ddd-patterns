@@ -31,7 +31,7 @@ export class Customer {
     }
 
     activate() {
-        if (!this._address || this._address === undefined) {
+        if (!this._address) {
             throw new Error("Customer must have an address");
         }
 
