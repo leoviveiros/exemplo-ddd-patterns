@@ -1,28 +1,41 @@
 export default class OrderItem {
-    private id: string;
-    private name: string;
-    private price: number;
+    private _id: string;
+    private _productId: string;
+    private _name: string;
+    private _price: number;
+    private _quantity: number;
 
-    constructor(id: string, name: string, price: number) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-
-        this.validate();
+    constructor(
+        id: string,
+        name: string,
+        price: number,
+        productId: string,
+        quantity: number
+    ) {
+        this._id = id;
+        this._name = name;
+        this._price = price;
+        this._productId = productId;
+        this._quantity = quantity;
     }
 
-    private validate(): void {
-        if (!this.id || this.id.length === 0) {
-            throw new Error("Id is required");
-        }
-
-        if (!this.name || this.name.length === 0) {
-            throw new Error("Name is required");
-        }
-
-        if (!this.price) {
-            throw new Error("Price is required");
-        }
+    get id(): string {
+        return this._id;
     }
 
+    get name(): string {
+        return this._name;
+    }
+
+    get productId(): string {
+        return this._productId;
+    }
+
+    get quantity(): number {
+        return this._quantity;
+    }
+
+    get price(): number {
+        return this._price * this._quantity;
+    }
 }
