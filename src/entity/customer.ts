@@ -12,10 +12,10 @@ Complexidade Acidental
         - customer.ts (getters / setters)
 */
 export default class Customer {
-    _id: string;
-    _name: string;
-    _address!: Address;
-    _active: boolean = false;
+    private _id: string;
+    private _name: string;
+    private _address!: Address;
+    private _active: boolean = false;
 
     constructor(id: string, name: string) {
         this._id = id;
@@ -42,6 +42,10 @@ export default class Customer {
         this._active = false;
     }
 
+    isActive() {
+        return this._active;
+    }
+
     validade() {
         if (!this._id || this._id.length === 0) {
             throw new Error("Id is required");
@@ -54,6 +58,10 @@ export default class Customer {
 
     set Address(address: Address) {
         this._address = address;
+    }
+
+    get name() {
+        return this._name;
     }
 
 }

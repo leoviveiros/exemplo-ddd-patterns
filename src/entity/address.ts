@@ -1,15 +1,13 @@
 
 export default class Address {
-    _street: string;
-    _number: number;
-    _complement: string;
-    _zipCode: string;
-    _city: string;
+    private _street: string;
+    private _number: number;
+    private _zipCode: string;
+    private _city: string;
 
-    constructor(street: string, number: number, complement: string, zipCode: string, city: string) {
+    constructor(street: string, number: number, zipCode: string, city: string) {
         this._street = street;
         this._number = number;
-        this._complement = complement;
         this._zipCode = zipCode;
         this._city = city;
 
@@ -35,7 +33,7 @@ export default class Address {
     }
 
     toString() {
-        return `${this._street}, ${this._number}, ${this._complement}, ${this._zipCode}, ${this._city}`;
+        return `${this._street}, ${this._number}, ${this._zipCode}, ${this._city}`;
     }
 
 }
