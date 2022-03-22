@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "npm run tsc && jest",
+    "tsc": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
