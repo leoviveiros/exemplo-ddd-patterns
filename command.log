@@ -10,3 +10,6 @@ npx tsc
 
 # inicia tslint
 npx tslint --init
+
+## Jest ##
+npx jest --init
