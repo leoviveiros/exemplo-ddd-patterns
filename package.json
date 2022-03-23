@@ -7,6 +7,9 @@
     "test": "npm run tsc && jest",
     "tsc": "tsc --noEmit"
   },
+  "engines": {
+    "node": "16"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
