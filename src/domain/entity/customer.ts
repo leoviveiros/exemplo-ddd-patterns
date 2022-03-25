@@ -31,6 +31,12 @@ export default class Customer {
         this.validade();
     }
 
+    changeAddress(address: Address) {
+        this._address = address;
+
+        this.validade();
+    }
+
     activate() {
         if (!this._address) {
             throw new Error("Customer must have an address");
@@ -61,8 +67,8 @@ export default class Customer {
         }
     }
 
-    set Address(address: Address) {
-        this._address = address;
+    get address() {
+        return this._address;
     }
 
     get id() {

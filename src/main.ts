@@ -7,7 +7,7 @@ import OrderItem from './domain/entity/order-item';
 const customer = new Customer('123', 'John');
 const address = new Address('Rua Vergueiro', 300, '01310-200', 'São Paulo');
 
-customer.Address = address;
+customer.changeAddress(address);
 customer.activate();
 
 // Order Aggregate
