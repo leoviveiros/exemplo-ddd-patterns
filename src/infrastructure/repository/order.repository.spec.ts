@@ -1,4 +1,5 @@
 import { Sequelize } from 'sequelize-typescript';
+
 import Address from '../../domain/entity/address';
 import Customer from '../../domain/entity/customer';
 import Order from '../../domain/entity/order';
@@ -9,6 +10,7 @@ import OrderItemModel from '../db/sequelize/model/order-item.model';
 import OrderModel from '../db/sequelize/model/order.model';
 import ProductModel from '../db/sequelize/model/product.model';
 import CustomerRepository from './customer.repository';
+import OrderRepository from './order.repository';
 import ProductRepository from './product.repository';
 
 describe('Order Repository Tests', () => {
@@ -62,6 +64,7 @@ describe('Order Repository Tests', () => {
         expect(orderModel.toJSON()).toStrictEqual({
             id: order.id,
             customer_id: customer.id,
+            total: order.total,
             items: [{
                 id: orderItem.id,
                 name: orderItem.name,
@@ -74,3 +77,5 @@ describe('Order Repository Tests', () => {
 
     });
 });
+
+// npm run tsc && jest src/infrastructure/repository/order.repository.spec.ts
