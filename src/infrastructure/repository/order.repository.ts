@@ -30,6 +30,12 @@ export default class OrderRepository implements OrderRepositoryInterface {
         }
     }
 
+    private modelAsDomain(orderModel: OrderModel): Order {
+        const orderItems = orderModel.items.map(item => new OrderItem(item.id, item.name, item.price, item.product_id, item.quantity));
+
+        return new Order(orderModel.id, orderModel.customer_id, orderItems);
+    }
+
     async create(order: Order): Promise<void> {
         await OrderModel.create(this.entityToModel(order), {
             include: [{ model: OrderItemModel }]
@@ -68,8 +74,16 @@ export default class OrderRepository implements OrderRepositoryInterface {
         });
     }
 
-    find(id: string): Promise<Order> {
-        throw new Error('Method not implemented.');
+    async find(id: string): Promise<Order> {
+        let orderModel: OrderModel;
+
+        try {
+            orderModel = await OrderModel.findOne({ where: { id }, include: ['items'] });    
+        } catch (error) {
+            throw new Error('Order not found');
+        }
+
+        return this.modelAsDomain(orderModel);
     }
 
     findAll(): Promise<Order[]> {

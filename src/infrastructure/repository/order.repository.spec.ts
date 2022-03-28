@@ -141,8 +141,20 @@ describe('Order Repository Tests', () => {
             expect(orderItems).toHaveLength(0);
         });
 
+        it('should find an order', async () => {
+            await orderRepository.create(order);
+
+            const orderFound = await orderRepository.find(order.id);
+
+            expect(orderFound).toStrictEqual(order);
+        });
+
+        it('should throw and error when an order is not found', () => {
+            expect(async () => {
+                await orderRepository.find('1WER');
+            }).rejects.toThrow('Order not found');
+        });
+
     });
 
 });
-
-// npm run tsc && npx jest src/infrastructure/repository/order.repository.spec.ts --watch

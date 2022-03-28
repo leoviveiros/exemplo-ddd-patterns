@@ -50,7 +50,7 @@ export default class Order {
     }
 
     private _getTotal(): number {
-        return this._items.reduce((acc, item) => acc + item.price, 0);
+        return this._items.reduce((acc, item) => acc + item.total, 0);
     }
 
     addItem(item: OrderItem): void {
