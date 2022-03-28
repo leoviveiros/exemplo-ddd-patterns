@@ -45,20 +45,22 @@ describe('Order Repository Tests', () => {
         let orderRepository: OrderRepository;
         let orderItem: OrderItem;
         let order: Order;
+        let customer: Customer;
+        let product: Product;
 
         beforeEach(async () => {
             orderRepository = new OrderRepository(sequelize);
 
             const customerRepository = new CustomerRepository();
-            const customer = new Customer('1', 'Customer 1')
             const address = new Address('Street 1', 1, 'Zip Code 1', 'City 1');
-
+            
+            customer = new Customer('1', 'Customer 1')
             customer.changeAddress(address);
 
             await customerRepository.create(customer);
 
             productRepository = new ProductRepository();
-            const product = new Product('1', 'Product 1', 100);
+            product = new Product('1', 'Product 1', 100);
 
             await productRepository.create(product);
 
@@ -153,6 +155,21 @@ describe('Order Repository Tests', () => {
             expect(async () => {
                 await orderRepository.find('1WER');
             }).rejects.toThrow('Order not found');
+        });
+
+        it('should find all orders', async () => {
+            await orderRepository.create(order);
+
+            const orderItem2 = new OrderItem('2', product.name, product.price, product.id, 4);
+            const order2 = new Order('234', customer.id, [orderItem2]);
+
+            await orderRepository.create(order2);
+
+            const orders = await orderRepository.findAll();
+
+            expect(orders).toHaveLength(2);
+            expect(orders).toContainEqual(order);
+            expect(orders).toContainEqual(order2);
         });
 
     });
