@@ -122,8 +122,27 @@ describe('Order Repository Tests', () => {
                 }],
             });
         });
+
+        it('should delete an order', async () => {
+            await orderRepository.create(order);
+
+            let orderItems = await OrderItemModel.findAll({ where: { order_id: order.id } });
+
+            expect(orderItems).toHaveLength(1);
+
+            await orderRepository.delete(order.id);
+
+            const orderModel = await OrderModel.findOne({ where: { id: order.id } });
+
+            expect(orderModel).toBeNull();
+
+            orderItems = await OrderItemModel.findAll({ where: { order_id: order.id } });
+
+            expect(orderItems).toHaveLength(0);
+        });
+
     });
-    
+
 });
 
-// npm run tsc && npx jest src/infrastructure/repository/order.repository.spec.ts
+// npm run tsc && npx jest src/infrastructure/repository/order.repository.spec.ts --watch

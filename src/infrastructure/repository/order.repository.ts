@@ -37,7 +37,7 @@ export default class OrderRepository implements OrderRepositoryInterface {
     }
 
     async update(order: Order): Promise<void> {
-        await this.sequelize.transaction(async transaction => {
+        return this.sequelize.transaction(async transaction => {
             await OrderModel.update(this.entityToModel(order), {
                 where: { id: order.id },
                 transaction: transaction
@@ -54,8 +54,18 @@ export default class OrderRepository implements OrderRepositoryInterface {
         });
     }
 
-    delete(id: string): Promise<void> {
-        throw new Error('Method not implemented.');
+    async delete(id: string): Promise<void> {
+        return this.sequelize.transaction(async transaction => {
+            await OrderModel.destroy({
+                where: { id: id },
+                transaction: transaction
+            });
+
+            await OrderItemModel.destroy({
+                where: { order_id: id },
+                transaction: transaction
+            });
+        });
     }
 
     find(id: string): Promise<Order> {
