@@ -41,11 +41,14 @@ describe('Order Repository Tests', () => {
 
     describe('persistence tests', () => {
 
-        const orderRepository = new OrderRepository();
+        let productRepository: ProductRepository;
+        let orderRepository: OrderRepository;
         let orderItem: OrderItem;
         let order: Order;
 
         beforeEach(async () => {
+            orderRepository = new OrderRepository(sequelize);
+
             const customerRepository = new CustomerRepository();
             const customer = new Customer('1', 'Customer 1')
             const address = new Address('Street 1', 1, 'Zip Code 1', 'City 1');
@@ -54,7 +57,7 @@ describe('Order Repository Tests', () => {
 
             await customerRepository.create(customer);
 
-            const productRepository = new ProductRepository();
+            productRepository = new ProductRepository();
             const product = new Product('1', 'Product 1', 100);
 
             await productRepository.create(product);
@@ -81,10 +84,46 @@ describe('Order Repository Tests', () => {
                     order_id: order.id
                 }],
             });
+        });
 
+        it('should update an order', async () => {
+            await orderRepository.create(order);
+
+            const product2 = new Product('2', 'Product 2', 200);
+
+            await productRepository.create(product2);
+
+            const newItem = new OrderItem('2', product2.name, product2.price, product2.id, 2);
+
+            order.addItem(newItem);
+
+            await orderRepository.update(order);
+
+            const orderModel = await OrderModel.findOne({ where: { id: order.id }, include: ['items'] });
+
+            expect(orderModel.toJSON()).toStrictEqual({
+                id: order.id,
+                customer_id: order.customerId,
+                total: order.total,
+                items: [{
+                    id: orderItem.id,
+                    name: orderItem.name,
+                    price: orderItem.price,
+                    product_id: orderItem.productId,
+                    quantity: orderItem.quantity,
+                    order_id: order.id
+                }, {
+                    id: newItem.id,
+                    name: newItem.name,
+                    price: newItem.price,
+                    product_id: newItem.productId,
+                    quantity: newItem.quantity,
+                    order_id: order.id
+                }],
+            });
         });
     });
     
 });
 
-// npm run tsc && jest src/infrastructure/repository/order.repository.spec.ts
+// npm run tsc && npx jest src/infrastructure/repository/order.repository.spec.ts
