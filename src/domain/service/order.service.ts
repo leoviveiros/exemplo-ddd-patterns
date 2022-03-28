@@ -13,12 +13,12 @@ export default class OrderService {
 
         const order = new Order(randomUUID(), customer.id, items);
 
-        customer.addRewardPoints(order.total() / 2);
+        customer.addRewardPoints(order.total / 2);
 
         return order;
     }
 
     static total(orders: Order[]): number {
-        return orders.reduce((total, order) => total + order.total(), 0);
+        return orders.reduce((total, order) => total + order.total, 0);
     }
 }

@@ -10,9 +10,17 @@ export default class Order {
         this._id = id;
         this._customerId = customerId;
         this._items = itens;
-        this._total = this.total();
+        this._total = this._getTotal();
 
         this.validate();
+    }
+
+    get id(): string {
+        return this._id;
+    }
+
+    get total(): number {
+        return this._total;
     }
 
     private validate(): void {
@@ -33,7 +41,8 @@ export default class Order {
         }
     }
 
-    total(): number {
+    private _getTotal(): number {
         return this._items.reduce((acc, item) => acc + item.price, 0);
     }
+
 }
