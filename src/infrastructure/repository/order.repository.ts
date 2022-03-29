@@ -49,12 +49,14 @@ export default class OrderRepository implements OrderRepositoryInterface {
                 transaction: transaction
             });
 
-            const orderItems = order.items.map(item => this.orderItemEntityToModel(item, order.id));
-            const promises: Promise<any>[] = [];
-
-            orderItems.forEach(async item => {
-                promises.push(OrderItemModel.upsert(item, { transaction: transaction }));
+            await OrderItemModel.destroy({
+                where: { order_id: order.id },
+                transaction: transaction
             });
+
+            const promises = order.items
+                .map(orderItemEntity => this.orderItemEntityToModel(orderItemEntity, order.id))
+                .map(async orderItemModel => OrderItemModel.create(orderItemModel, { transaction: transaction }));
 
             await Promise.all(promises);
         });
