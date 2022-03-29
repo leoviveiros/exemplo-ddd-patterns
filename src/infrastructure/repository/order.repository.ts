@@ -56,7 +56,7 @@ export default class OrderRepository implements OrderRepositoryInterface {
 
             const promises = order.items
                 .map(orderItemEntity => this.orderItemEntityToModel(orderItemEntity, order.id))
-                .map(async orderItemModel => OrderItemModel.create(orderItemModel, { transaction: transaction }));
+                .map(orderItemModel => OrderItemModel.create(orderItemModel, { transaction: transaction }));
 
             await Promise.all(promises);
         });
