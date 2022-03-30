@@ -1,16 +1,16 @@
 import Address from '../../entity/address';
 import Customer from '../../entity/customer';
 import EventDispatcher from '../shared/event-dispatcher';
-import EnviaConsoleLog1Handler from './handler/envia-console-log-1.handler';
-import EnviaConsoleLog2Handler from './handler/envia-console-log-2.handler';
+import LogsWhenCustomerCreated1Handler from './handler/logs-when-customer-created-1.handler';
+import LogsWhenCustomerCreated2Handler from './handler/logs-when-customer-created-2.handler';
 import LogsWhenCustomerAddressChangedHandler from './handler/logs-when-customer-address-changed.handler';
 
 describe('Customer Event tests', () => {
 
     it('should notify a customer created event', () => {
         const eventDispatcher = new EventDispatcher();
-        const log1Handler = new EnviaConsoleLog1Handler();
-        const log2Handler = new EnviaConsoleLog2Handler();
+        const log1Handler = new LogsWhenCustomerCreated1Handler();
+        const log2Handler = new LogsWhenCustomerCreated2Handler();
 
         const spyLog1Handler = jest.spyOn(log1Handler, 'handle');
         const spyLog2Handler = jest.spyOn(log2Handler, 'handle');
