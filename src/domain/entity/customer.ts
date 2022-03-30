@@ -1,3 +1,4 @@
+import CustomerAddressChangedEvent from '../event/customer/customer-address-changed.event';
 import CustomerCreatedEvent from '../event/customer/customer-created.event';
 import EventDispatcherInterface from '../event/shared/event-dispatcher.interface';
 import Address from './address';
@@ -73,6 +74,16 @@ export default class Customer {
         const event = new CustomerCreatedEvent({
             id: this._id,
             name: this._name
+        });
+
+        eventDispatcher.notify(event);
+    }
+
+    notifyAddressChanged(eventDispatcher: EventDispatcherInterface) {
+        const event = new CustomerAddressChangedEvent({
+            id: this._id,
+            name: this._name,
+            address: this._address
         });
 
         eventDispatcher.notify(event);
