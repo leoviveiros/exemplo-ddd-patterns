@@ -1,3 +1,5 @@
+import CustomerCreatedEvent from '../event/customer/customer-created.event';
+import EventDispatcherInterface from '../event/shared/event-dispatcher.interface';
 import Address from './address';
 
 /*
@@ -65,6 +67,15 @@ export default class Customer {
         if (!this._name || this._name.length === 0) {
             throw new Error("Name is required");
         }
+    }
+
+    notifyCustomerCreated(eventDispatcher: EventDispatcherInterface) {
+        const event = new CustomerCreatedEvent({
+            id: this._id,
+            name: this._name
+        });
+
+        eventDispatcher.notify(event);
     }
 
     get address() {
