@@ -6,6 +6,7 @@
     "scripts": {
         "test": "npm run tsc && jest",
         "tsc": "tsc --noEmit",
+        "tscWatch": "tsc --noEmit --watch",
         "watch": "npm run tsc && jest --watch"
     },
     "engines": {
