@@ -1,9 +1,9 @@
-import Address from '../../entity/address';
-import Customer from '../../entity/customer';
-import EventDispatcher from '../shared/event-dispatcher';
-import LogsWhenCustomerCreated1Handler from './handler/logs-when-customer-created-1.handler';
-import LogsWhenCustomerCreated2Handler from './handler/logs-when-customer-created-2.handler';
-import LogsWhenCustomerAddressChangedHandler from './handler/logs-when-customer-address-changed.handler';
+import Address from '../value-object/address';
+import LogsWhenCustomerCreated1Handler from '../../customer/event/handler/logs-when-customer-created-1.handler';
+import LogsWhenCustomerCreated2Handler from '../../customer/event/handler/logs-when-customer-created-2.handler';
+import LogsWhenCustomerAddressChangedHandler from '../../customer/event/handler/logs-when-customer-address-changed.handler';
+import EventDispatcher from '../../shared/event/event-dispatcher';
+import Customer from '../entity/customer';
 
 describe('Customer Event tests', () => {
 

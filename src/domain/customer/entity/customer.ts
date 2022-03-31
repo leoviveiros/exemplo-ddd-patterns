@@ -1,7 +1,7 @@
-import CustomerAddressChangedEvent from '../event/customer/customer-address-changed.event';
-import CustomerCreatedEvent from '../event/customer/customer-created.event';
-import EventDispatcherInterface from '../event/shared/event-dispatcher.interface';
-import Address from './address';
+import CustomerAddressChangedEvent from '../event/customer-address-changed.event';
+import CustomerCreatedEvent from '../event/customer-created.event';
+import EventDispatcherInterface from '../../shared/event/event-dispatcher.interface';
+import Address from '../value-object/address';
 
 /*
 Complexidade de Negócio:
